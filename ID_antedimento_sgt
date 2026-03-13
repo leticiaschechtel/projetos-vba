@@ -1,0 +1,131 @@
+
+1) Excel pega o **ID_ATENDIMENTO** na linha  
+2) monta a URL `https://sgt.cni.com.br/atendimento/{ID}?page=1&filterCriteria=...`  
+3) faz **HTTP GET** (com cookie/token se o site exigir login)  
+4) extrai:
+   - **Receita Realizada**: `<p class="text-2xl ... text-green-700">R$&nbsp;VALOR</p>`
+   - **Produção Realizada** (horas/ensaios): `<div class="space-y-1"><p ...>VALOR_1</p><p ...>VALOR_2</p></div>`
+5) compara com a(s) célula(s); se divergente pinta a linha e continua
+
+Abaixo vai um exemplo completo com funções de extração por RegExp.
+
+---
+
+## Macro Excel (loop + comparação + pintar linha)
+
+> Ajuste os `COL_*` conforme sua planilha.
+' Realizar uma entrada no Excel com um link que sairá no contrato da variável numérica de "ID"
+'Saída na página de "ID" substituído no caminho WEB do URL;
+' Buscar o valor na página na linha "X" que demonstra o valor e confirma se o valor da célula "Receita total" é igual a "X"
+' Se TRUE = Segue o loop senão pinta a linha e continua
+
+' Link URL https://sgt.cni.com.br/atendimento/"SUBSTITUIR_ID"?page=1&filterCriteria=search%3D692009
+
+' Visualizar a coluna "RECEITA REALIZADAS" é igual a "<p class="text-2xl font-semibold text-green-700">R$&nbsp;"VALOR_DA_RECEITA"</p>" no link https://sgt.cni.com.br/atendimento/"ID_ATENDIMENTO"?page=1&filterCriteria=search%3D692009
+' Visualizar a coluna "PRODUÇÃO REALIZADA" e sendo "PRODUÇÃO REALIZADA" = "horas" ou "ensaios" é igual a "<div class="space-y-1"><p class="text-sm font-semibold text-blue-700">"VALOR_DE_ENSAIOS"</p><p class="text-sm font-semibold text-blue-700">"VALOR_DE_RELATORIOS_LAUDOS"</p></div>"
+
+' vb
+Option Explicit
+
+' ======= AJUSTE AQUI =======
+Private Const FIRST_DATA_ROW As Long = 1
+Private Const COL_ID As Long = 2                 ' B: ID_ATENDIMENTO
+Private Const COL_RECEITA_EXCEL As Long = 11      ' K: Receita (R$)
+Private Const COL_PROD1_EXCEL As Long = 12        ' L: Produção 12 (ensaios/horas)
+Private Const COL_PROD2_EXCEL As Long = 13        ' M: Produção 2 (relatórios/laudos)
+' ===========================
+
+Private Function ExtrairReceitaWeb(ByVal html As String) As Double
+    ' Procura: <p class="... text-green-700">R$&nbsp;VALOR</p>
+    Dim re As Object: Set re = CreateObject("VBScript.RegExp")
+    re.Global = False
+    re.IgnoreCase = True
+    re.Multiline = True
+
+    ' Captura o texto depois de R$&nbsp; até </p>
+    re.Pattern = "<p\s+class=""[^""]*text-green-700[^""]*"">\s*R\$\s*(?:&nbsp;|\s)*([^<]+)</p>"
+
+    If Not re.Test(html) Then
+        ExtrairReceitaWeb = -1
+        Exit Function
+    End If
+
+    Dim m As Object
+    Set m = re.Execute(html)(0)
+
+    ExtrairReceitaWeb = NormalizarNumero(m.SubMatches(0))
+End Function
+
+Private Const URL_TEMPLATE As String = "https://sgt.cni.com.br/atendimento/{ID}?page=1&filterCriteria=search%3D692009"
+
+Public Sub ValidarSGT_PorID()
+    Dim ws As Worksheet: Set ws = ActiveSheet
+    Dim lastRow As Long: lastRow = ws.Cells(ws.Rows.Count, 2).End(xlUp).Row
+
+    Dim r As Long
+    For r = FIRST_DATA_ROW To lastRow
+        Dim id As String: id = Trim$(CStr(ws.Cells(r, 2).Value))
+        If Len(id) = 0 Then GoTo NextRow
+
+        Dim url As String: url = Replace("https://sgt.cni.com.br/atendimento/{ID}?page=1&filterCriteria=search%3D692009", "{ID}", id)
+
+        Dim html As String
+        html = HttpGetText(url)
+        If Len(html) = 0 Then
+            PintarLinha ws, r, RGB(255, 235, 156) ' amarelo: falhou request (ou sem autenticação)
+            GoTo NextRow
+        End If
+
+        Dim receitaWeb As Double: receitaWeb = ExtrairReceitaWeb(html) ' -1 se não achou
+        Dim prod1Web As Double, prod2Web As Double
+        Call ExtrairProducaoWeb(html, prod1Web, prod2Web)              ' -1 se não achou
+
+        Dim receitaExcel As Double: receitaExcel = NormalizarNumero(ws.Cells(r, 11).Value)
+        Dim prod1Excel As Double: prod1Excel = NormalizarNumero(ws.Cells(r, 12).Value)
+        Dim prod2Excel As Double: prod2Excel = NormalizarNumero(ws.Cells(r, 12).Value)
+
+        Dim ok As Boolean: ok = True
+
+        If receitaWeb <> -1 Then
+            If Abs(receitaExcel - receitaWeb) > 0.0001 Then ok = False
+        Else
+            ok = False
+        End If
+
+        If prod1Web <> -1 Then
+            If Abs(prod1Excel - prod1Web) > 0.0001 Then ok = False
+        Else
+            ok = False
+        End If
+
+        If prod2Web <> -1 Then
+            If Abs(prod2Excel - prod2Web) > 0.0001 Then ok = False
+        Else
+            ok = False
+        End If
+
+        If ok Then
+            LimparPintura ws, r
+        Else
+            PintarLinha ws, r, RGB(255, 199, 206) ' vermelho: divergência/extração falhou
+        End If
+
+NextRow:
+        DoEvents
+    Next r
+
+    MsgBox "Concluído.", vbInformation
+End Sub
+```
+
+---
+
+
+## Pergunta rápida (para eu ajustar o ponto mais crítico)
+Esse site `sgt.cni.com.br` exige login. Quando você abre no navegador, você precisa estar autenticada. No VBA:
+
+- Você quer rodar **com você logada no navegador** (reaproveitar sessão/cookies), ou
+- Você tem como usar um **token/API**, ou
+- Você pretende automatizar via **WebDriver/Edge** (para “navegar” e então ler o HTML)?
+
+Se você me disser qual das 3 opções é possível no seu caso, eu te passo a versão correta para não “voltar HTML de login” e quebrar a extração.
