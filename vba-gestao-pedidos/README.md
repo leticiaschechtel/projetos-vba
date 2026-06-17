@@ -56,7 +56,6 @@ Desenvolvi um script em **VBA (Visual Basic for Applications)** que atua como um
 5. Pronto! O sistema informará quantas linhas foram criadas ou atualizadas. :)
 
 --- 
-_Projeto desenvolvido em período de estágio. 
-_
-_At. 16/06/2026
-_
+_Projeto desenvolvido em período de estágio._
+
+_At. 16/06/2026_
