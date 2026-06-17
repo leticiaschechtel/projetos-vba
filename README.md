@@ -1,26 +1,35 @@
-#  VBA Projetos e Estudos
-Repositório com projetos em Visual Basic 
+# Projetos em Visual Basic e Excel Avançado
+> Repositório com projetos em Visual Basic 
 
 
 ![VBA](https://img.shields.io/badge/VBA-Visual%20Basic%20for%20Applications-blue) ![Excel](https://img.shields.io/badge/Excel-Microsoft-green) ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+---
 
 ##  Sobre o Repositório
 Este repositório centraliza meus repositórios com **VBA (Visual Basic for Applications)**. 
 
-O objetivo é demonstrar a capacidade de:
+### As aplicações demonstram
 * Automatizar tarefas repetitivas.
 * Criar interfaces de usuário (UserForms).
 * Manipular grandes volumes de dados.
 * Integrar o Excel com outras aplicações do Office.
 
+---
+
 ## 📂 Estrutura dos Projetos
 
-| Projeto / Estudo | Descrição | Principais Comandos Usados |
-| :--- | :--- | :--- |
-| **Gestão de Patrimônio** | Dashboard para controle de ativos e passivos, calculando automaticamente a alocação da carteira e variação patrimonial. | `WorksheetFunction`, `ChartObjects`, `Protect/Unprotect` |
-| **Gestão de Pedidos** | Sistema completo com formulário (UserForm) para cadastro de vendas, baixa automática de estoque e histórico de clientes. | `UserForm`, `ListBox`, `Find/FindNext`, `Offset` |
-| **Automação Financeira** | Script para otimizar o registro de despesas e receitas, com categorização automática e validação de datas de lançamento. | `DateSerial`, `Select Case`, `ListObjects` (Tabelas), `AutoFilter` |
-| **Estudos Iniciais** | Coleção de scripts fundamentais focados em lógica de programação. | `MsgBox`, `InputBox`, `For...Next`, `Range` |
+### `vba-gestao-patrimonio/`
+- `macro_1_coleta_relatorios.vb` — Importa CSV do Pipefy
+- `macro_2_atualizacao_relatorios.vb` — Sincroniza histórico com inventário
+- `processo_apl.md` — Documentação visual do fluxo completo
+
+### `vba-gestao-pedidos/`
+- `macro_gestao_pedidos.vb` — Integração inteligente Pipefy ↔ Excel
+- `README.md` — Guia passo a passo
+
+### `mala_direta_contratos.vb`
+- Automação Word para gerar PDFs em lote
 
 ## Tecnologias e Conceitos Aplicados
 Neste repositório, exploro os seguintes conceitos:
