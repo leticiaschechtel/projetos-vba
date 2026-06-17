@@ -1,3 +1,6 @@
+# Conversão de files Excel/Word para PDF 
+' O código executa o cruzamento de informações dispostas em Excel para Word e gera automaticamente PDF's para encaminhar para assinatura digital. 
+---
 
 Option Explicit
 
