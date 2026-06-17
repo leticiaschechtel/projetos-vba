@@ -1,15 +1,23 @@
-vba-gestao-pedidos
+# Projeto em Visual Basic para Gestão de Pedidos de Compra
 
-Automação em VBA para integração e tratamento de dados de compras entre Pipefy (CSV) e Excel.
- *A Automação padroniza por áreas no modelo da empresa.
+## Objetivo 
+### A automação em VBA para integração e tratamento de dados de compras entre Pipefy (CSV) e Excel.
+- A Automação padroniza por áreas no modelo da empresa.
+- Permanência da informação com um software essencial.
+- Banco de dados.
 
-## Problema
+## Problema do processo
  O processo de atualização da planilha de compras era manual, exigindo a leitura linha a linha de relatórios exportados do Pipefy. Isso gerava:
 - Alto tempo gasto em tarefas repetitivas.
 - Risco de erros de digitação e duplicação de dados.
 - Dificuldade em padronizar nomes de departamentos e status.
 - Computador da empresa limita utilização de softwares/IDE's.
 - Impossibilidade de migração total ao Pipefy por conta de processo interno.
+
+### Problema institucional
+- A escolha da aplicação é feita pela resistência a novas tecnologias em empresa tradicional.
+- A variação orçamentária da paraestatal gera instabilidade nos softwares disponibilizados pelas equipes, sendo o Excel uma forma muito simples e segura de controlar os dados.
+- Os controles geralmente são individuais, facilitando a utilização de macros, não há outros colaboradores envolvidos na gestão do processo. 
 
 ## Solução
 Desenvolvi um script em **VBA (Visual Basic for Applications)** que atua como um ETL (Extract, Transform, Load) leve dentro do próprio Excel. O sistema lê o CSV bruto, limpa os dados e atualiza a base principal automaticamente.
@@ -45,4 +53,9 @@ Desenvolvi um script em **VBA (Visual Basic for Applications)** que atua como um
 2. Abra a planilha deste repositório (`.xlsm`).
 3. Clique no botão **"Atualizar Dados"** (ou execute a macro `AtualizarComprasComPipefy`).
 4. Selecione o arquivo CSV.
-5. Pronto! O sistema informará quantas linhas foram criadas ou atualizadas. :) 
+5. Pronto! O sistema informará quantas linhas foram criadas ou atualizadas. :)
+
+--- 
+Projeto desenvolvido em período de estágio. 
+
+At. 16/06/2026
