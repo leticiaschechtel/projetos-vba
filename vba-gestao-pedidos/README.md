@@ -1,7 +1,7 @@
 # Projeto em Visual Basic para Gestão de Pedidos de Compra
 
 ## Objetivo 
-### A automação em VBA para integração e tratamento de dados de compras entre Pipefy (CSV) e Excel.
+> A automação em VBA para integração e tratamento de dados de compras entre Pipefy (CSV) e Excel.
 - A Automação padroniza por áreas no modelo da empresa.
 - Permanência da informação com um software essencial.
 - Banco de dados.
@@ -56,6 +56,7 @@ Desenvolvi um script em **VBA (Visual Basic for Applications)** que atua como um
 5. Pronto! O sistema informará quantas linhas foram criadas ou atualizadas. :)
 
 --- 
-Projeto desenvolvido em período de estágio. 
-
-At. 16/06/2026
+_Projeto desenvolvido em período de estágio. 
+_
+_At. 16/06/2026
+_
