@@ -1,5 +1,9 @@
 # Projeto em Visual Basic para Gestão de Pedidos de Compra
 
+![Ferramentas](https://img.shields.io/badge/Stack-Excel%20|%20Power%20Query%20|%20VBA%20|%20Power%20BI-blue)
+
+---
+
 ## Objetivo 
 > A automação em VBA para integração e tratamento de dados de compras entre Pipefy (CSV) e Excel.
 - A Automação padroniza por áreas no modelo da empresa.
