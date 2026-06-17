@@ -1,3 +1,8 @@
+# Formatação de contratos 
+' Converte alta quantidade de arquivos em Word para contratos formatados em PDF com finalidade de Assinatura Digital. 
+' Atualiza de maneira automática os nomes dos arquivos.
+---
+
 Sub SalvarUmPorUm()
     Dim docBase As Document
     Dim i As Integer
