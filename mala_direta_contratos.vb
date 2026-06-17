@@ -1,3 +1,4 @@
+
 Option Explicit
 
 Sub GerarRequisicoesPDF()
@@ -13,10 +14,10 @@ Sub GerarRequisicoesPDF()
     Set docMaster = ActiveDocument
     
     ' Define o nome da coluna no Excel que será o nome do arquivo PDF
-    ' IMPORTANTE: Deve ser exatamente igual ao cabeçalho da sua planilha
+    ' Deve ser igual ao cabeçalho da planilha
     campoNome = "OBJETO"
 
-    ' Tenta capturar a pasta onde o Word está salvo
+    ' Tenta capturar a pasta onde o Word está salvo, se a pasta for externa tende a dar erro. 
     On Error Resume Next
     caminhoPasta = docMaster.Path & "\"
     If caminhoPasta = "\" Then
@@ -75,10 +76,9 @@ Sub GerarRequisicoesPDF()
         ' 6. Fecha o documento mesclado sem salvar (para ficar apenas o PDF)
         docFinal.Close SaveChanges:=False
         
-        ' Retorna o foco para o documento mestre para a próxima linha
         docMaster.Activate
     Next i
-    ' --- FIM DO PROCESSO ---
+    ' --- FIM ---
 
     MsgBox "Sucesso! " & nRegistros & " Termos de Referência foram gerados em PDF na pasta: " & vbCrLf & caminhoPasta, vbInformation, "Automação Concluída"
 End Sub
