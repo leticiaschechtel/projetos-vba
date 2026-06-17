@@ -1,4 +1,4 @@
-Option Explicit
+    Option Explicit
 
 ' ===== CONFIGURAÇÕES =====
 Private Const DEST_SHEET As String = "Matriz" ' Nome da aba de destino (planilha do setor)
