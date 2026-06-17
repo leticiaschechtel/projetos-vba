@@ -45,4 +45,6 @@ Neste repositório, exploro os seguintes conceitos:
 * **E-mail:** leticiaschechtel@outlook.com
 
 ---
-*Este repositório é para fins de estudo e portfólio.*
+## Licença
+
+Este projeto está licenciado sob a Licença MIT para fins educacionais e de portfólio. - veja o arquivo [LICENSE](LICENSE) para detalhes.
