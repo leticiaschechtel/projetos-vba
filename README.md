@@ -47,4 +47,4 @@ Neste repositório, exploro os seguintes conceitos:
 ---
 ## Licença
 
-Este projeto está licenciado sob a Licença MIT para fins educacionais e de portfólio. - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está licenciado sob a Licença MIT para fins educacionais e de portfólio. 
