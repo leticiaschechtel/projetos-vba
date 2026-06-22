@@ -1,0 +1,15 @@
+caminho = "inserir_caminho"
+
+import os 
+
+lista_arquivos = os.listdir(caminho)
+print(lista_arquivos)
+  if ".csv" in arquivo;
+    if "JANEIRO" in arquivo:
+        pasta = "jan/"
+    elif  in arquivo:
+        pasta = "fev/"
+        elif  in arquivo:
+        pasta = "mar/"
+  os.rename (caminho + arquivo, 
+             caminho + pasta + arquivo)
